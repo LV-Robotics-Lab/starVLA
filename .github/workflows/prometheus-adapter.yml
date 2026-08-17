@@ -1,0 +1,26 @@
+name: Prometheus adapter
+
+on:
+  pull_request:
+    paths:
+      - ".prometheus/**"
+      - ".github/workflows/prometheus-adapter.yml"
+  push:
+    paths:
+      - ".prometheus/**"
+      - ".github/workflows/prometheus-adapter.yml"
+
+jobs:
+  contract:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Compile and test the dependency-free adapter
+        run: |
+          python -m py_compile .prometheus/adapter.py .prometheus/test_adapter.py
+          python .prometheus/adapter.py capabilities
+          python .prometheus/adapter.py doctor
+          python .prometheus/test_adapter.py
