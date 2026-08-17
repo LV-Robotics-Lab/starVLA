@@ -1,0 +1,40 @@
+{
+  "schema": "prometheus_source_adapter_v1",
+  "policy_id": "star_vla",
+  "environment": {
+    "manager": "venv",
+    "python": "3.10",
+    "spec_files": [
+      "requirements.txt",
+      "pyproject.toml"
+    ]
+  },
+  "dataset": {
+    "formats": [
+      "lerobot_v2_1",
+      "lerobot_v3"
+    ],
+    "required_modalities": [
+      "action",
+      "rgb",
+      "language"
+    ],
+    "optional_modalities": [
+      "state"
+    ]
+  },
+  "capabilities": {
+    "resume": "weights_only",
+    "distributed": "multihost",
+    "hardware_rollout_authorized": false
+  },
+  "stages": {
+    "doctor": true,
+    "prepare": false,
+    "train": true,
+    "resume": true,
+    "eval": false,
+    "export": false,
+    "serve": true
+  }
+}
